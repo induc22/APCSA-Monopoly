@@ -6,6 +6,7 @@ public class Player {
     private int space;
     private boolean inJail;
     private ArrayList<Property> property;
+    private boolean getOutJailFree;
 
     public Player() {
         property = new ArrayList<Property>();
@@ -54,5 +55,13 @@ public class Player {
     
     public void setProperty(ArrayList<Property> property) {
         this.property = property;
+    }
+
+    public boolean getGetOutJailFree() {
+        return this.getOutJailFree;
+    }
+
+    public void setGetOutJailFree(boolean getOutJailFree) {
+        this.getOutJailFree = getOutJailFree;
     }
 }

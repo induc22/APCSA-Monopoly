@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class Game {
+
     private int numPlayers;
     private Player[] players;
-    private Space[] board;
     Scanner user = new Scanner(System.in);
 
     public Game() {
@@ -24,7 +24,7 @@ public class Game {
             players[i].setMoney(1500);
         }
 
-        //set up board
+        Board board = new Board();
         //board = {new Space("Go"), new Property("Mediterannean")} TODO: you are hereeeeeeee
 
     }
@@ -43,14 +43,6 @@ public class Game {
 
     public void setPlayers(Player[] players) {
         this.players = players;
-    }
-
-    public Space[] getBoard() {
-        return this.board;
-    }
-
-    public void setBoard(Space[] board) {
-        this.board = board;
     }
 
 }

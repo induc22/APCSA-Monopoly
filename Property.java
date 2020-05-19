@@ -5,6 +5,9 @@ public class Property extends Space {
     private int numHouses;
     private int numHotels;
     private boolean isOwned;
+    private Player owner;
+    private propertyType type;
+    private int boardSpace;
 
     public Property() {}
 
@@ -71,5 +74,21 @@ public class Property extends Space {
 
     public void setIsOwned(boolean isOwned) {
         this.isOwned = isOwned;
+    }
+
+    public Player getOnwer() {
+        return this.owner;
+    }
+
+    public void setPlayer(Player owner) {
+        this.owner = owner;
+    }
+
+    public propertyType getType() {
+        return this.type;
+    }
+
+    public void setPropertyType(propertyType type) {
+        this.type = type;
     }
 }
