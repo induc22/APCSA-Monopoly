@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
+    private int index;
     private String name;
     private int money;
     private int space;
@@ -100,6 +101,14 @@ public class Player {
         this.numRR = numRR;
     }
 
+    public int getIndex() {
+        return this.index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     public void spaceMove(int spaceMove, Game game) {
         if(spaceMove < 0) {
             if(space < Math.abs(spaceMove)) {
@@ -142,5 +151,9 @@ public class Player {
                 space = i;
             }
         }
+    }
+    //TODO: write displayPlayerStats()
+    public void displayPlayerStats() {
+
     }
 }

@@ -7,6 +7,9 @@ public class Game {
     private Player currentPlayer;
     private Board board;
     private int diceRoll;
+    private String exit;
+    private boolean doubles;
+    private boolean play;
 
     Scanner user = new Scanner(System.in);
 
@@ -16,6 +19,8 @@ public class Game {
     }
 
     public void setup() {
+        doubles = true;
+        exit = "";
         System.out.println("Welcome to Simplified Monopoly!");
         
         // set up players and add money
@@ -29,6 +34,7 @@ public class Game {
             players[i] = new Player(name);
             players[i].setMoney(1500);
             players[i].setSpace(0);
+            players[i].setIndex(i);
             System.out.println(players[i].getName() + " now has $1500");
         }
 
@@ -84,23 +90,72 @@ public class Game {
 
     public void gamePlay() {
         System.out.println("\nLet's Get Started!\n");
-        System.out.println("Press any key to roll the dice");
-        user.next();
-        System.out.println("Rolling...");
-        try
-        {
-        Thread.sleep(1000);
-        }
-        catch(InterruptedException ex)
-        {
-        Thread.currentThread().interrupt();
-        }
-        diceRoll = (int) (Math.random()*12 + 1);
-        System.out.println("You rolled a " + diceRoll);
-        currentPlayer.spaceMove(diceRoll, this);
-        System.out.println("TESTING: " + currentPlayer.getSpace());
-        System.out.println("You landed on " + board.getBoard()[currentPlayer.getSpace()].getName());
-        board.getBoard()[currentPlayer.getSpace()].run(this);
+        while(!exit.equals("Y")) {
+            currentPlayer.displayPlayerStats();
+            if (currentPlayer.getInJail()) { //TODO: test in jail
+                System.out.println("You're in jail!");
+                System.out.println("Press: ");
+                System.out.println("1 to pay $50 to get out");
+                System.out.println("2 to roll dice (need doubles to get out)"); //TODO: dice roll doubles implementation - play again and get out of jail
+                if(currentPlayer.getGetOutJailFree()) {
+                    System.out.println("3 to use your get out of jail free card");
+                }
+                System.out.println("Press any other key to stay in jail");
+                int choice = user.nextInt();
+                if(choice == 1) {
+                    currentPlayer.incrementMoney(-50);
+                    currentPlayer.setInJail(false);
+                    System.out.println("You are out of jail!");
+                } else if(choice == 2) {
+                    rollDice();
+                    if(doubles) {
+                        currentPlayer.setInJail(false);
+                        System.out.println("You are out of jail!");
+                    } else {
+                        System.out.println("Sorry, you did not roll doubles. You are still in jail.");
+                    }
+                } else if (choice == 3) {
+                    System.out.println("You used your get out of jail free card");
+                    System.out.println("You are out of jail!");
+                    currentPlayer.setGetOutJailFree(false);
+                    currentPlayer.setInJail(false);
+                } else {
+                    System.out.println("You are still in jail. Your turn is skipped");
+                }
+            }
+            if(!currentPlayer.getInJail()) {
+                play = true;
+                while(play) {
+                    System.out.println("Press any key to roll the dice");
+                    user.next();
+                    System.out.println("Rolling...");
+                    try
+                    {
+                    Thread.sleep(1000);
+                    }
+                    catch(InterruptedException ex)
+                    {
+                    Thread.currentThread().interrupt();
+                    }
+                    rollDice();
+                    System.out.println("You rolled a " + diceRoll);
+                    if (doubles) {
+                        System.out.println("You rolled doubles! You will play again after this turn");
+                    }
+                    play = doubles;
+                    currentPlayer.spaceMove(diceRoll, this);
+                    System.out.println("TESTING: " + currentPlayer.getSpace());
+                    System.out.println("You landed on " + board.getBoard()[currentPlayer.getSpace()].getName());
+                    board.getBoard()[currentPlayer.getSpace()].run(this);
+                }
+            }
+            currentPlayer.displayPlayerStats();
+            shiftPlayer();
+            System.out.println("Next Player: " + currentPlayer.getName());
+            System.out.println("Would you like to end the game?");
+            System.out.println("Press Y to end OR any other key to continue");
+            exit = user.nextLine();
+        }   
     }
 
     public int getNumPlayers() {
@@ -145,6 +200,25 @@ public class Game {
 
     public void sellProperty(Property property) {
         System.out.println("I'm selling property!");
+    }
+
+    public void shiftPlayer() {
+        if(currentPlayer == players[players.length-1]) {
+            currentPlayer = players[0];
+        } else {
+            currentPlayer = players[currentPlayer.getIndex()+1];
+        }
+    }
+
+    public void rollDice() {
+        int die1 = (int) (Math.random()*6 + 1);
+        int die2 = (int) (Math.random()*6 + 1);
+        if(die1 == die2) {
+            doubles = true;
+        } else {
+            doubles = false;
+        }
+        diceRoll = die1 + die2;
     }
 
 }
