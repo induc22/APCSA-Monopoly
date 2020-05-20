@@ -58,6 +58,10 @@ class Space {
             } else if (choice == 2) {
                 game.getCurrentPlayer().incrementMoney(-200);
             }
+        } else if(cardType.equals("Go to jail!")) {
+            game.getCurrentPlayer().setInJail(true);
+        } else if(cardType.equals("Luxury Tax")) {
+            game.getCurrentPlayer().incrementMoney(-75);
         }
     }
 
