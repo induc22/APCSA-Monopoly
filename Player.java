@@ -12,11 +12,17 @@ public class Player {
 
     public Player() {
         property = new ArrayList<Property>();
+        numRR = 0;
+        inJail = false;
+        getOutJailFree = false;
     }
 
     public Player(String name) {
         this.name = name;
         property = new ArrayList<Property>();
+        numRR = 0;
+        inJail = false;
+        getOutJailFree = false;
     }
 
     public String getName() {
@@ -32,11 +38,14 @@ public class Player {
     }
 
     public void setMoney(int money) {
+        int initMoney = this.money;
         this.money = money;
+        this.totalValue = this.totalValue + (money - initMoney);
     }
 
     public void incrementMoney(int increment) {
         this.money = this.money + increment;
+        this.totalValue = this.totalValue + increment;
     }
 
     public int getSpace() {
@@ -79,6 +88,10 @@ public class Player {
         this.totalValue = totalValue;
     }
 
+    public void incrementTotalValue(int increment) {
+        this.totalValue = this.totalValue + increment;
+    }
+
     public int getNumRR() {
         return this.numRR;
     }
@@ -88,11 +101,19 @@ public class Player {
     }
 
     public void spaceMove(int spaceMove, Game game) {
-        if(space < spaceMove) {
-            int behindGo = spaceMove - space;
-            space = game.getBoard().getBoard().length - 1 - behindGo;
+        if(spaceMove < 0) {
+            if(space < Math.abs(spaceMove)) {
+                int behindGo = Math.abs(spaceMove) - space;
+                space = game.getBoard().getBoard().length - 1 - behindGo;
+            } else {
+                space = space - spaceMove;
+            }  
         } else {
-            space = space - spaceMove;
+            if(space + spaceMove > game.getBoard().getBoard().length) {
+                space = spaceMove + space - game.getBoard().getBoard().length;
+            } else {
+                space = space + spaceMove;
+            }
         }
     }
 

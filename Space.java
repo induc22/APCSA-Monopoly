@@ -22,7 +22,7 @@ class Space {
     public void run(Game game) {
         if (cardType.equals("Go")) {
             game.getCurrentPlayer().incrementMoney(200);
-        } else if (cardType.equals("CH") || cardType.equals("CC")) {
+        } else if (cardType.equals("Chance") || cardType.equals("Community Chest")) {
             ChanceOrComChest card = generateCCorCH(game.getBoard(), cardType);
             System.out.println(card.getAction());
             for(Player player : game.getPlayers()) {
@@ -66,7 +66,7 @@ class Space {
     }
 
     public ChanceOrComChest generateCCorCH(Board board, String type) {
-        if(type.equals("CC")) {
+        if(type.equals("Community Chest")) {
             int randomNum = (int) Math.random()*board.getComChest().size();
             return board.getComChest().get(randomNum);
         } else {

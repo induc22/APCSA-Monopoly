@@ -110,4 +110,9 @@ public class Property extends Space {
     public void setColor(String color) {
         this.color = color;
     }
+
+    //TODO: write sell property method
+    public void run(Game game) {
+        System.out.println("the run method in property");
+    } 
 }
