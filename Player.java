@@ -9,7 +9,8 @@ public class Player {
     private ArrayList<Property> property;
     private boolean getOutJailFree;
     private int totalValue; //TODO: totalValue() method to calculate, place in all methods that increment money or property
-    private int numRR; //TODO: numRR() method to calculate number of railroads
+    private int numRR;
+    private int numUtil;
 
     public Player() {
         property = new ArrayList<Property>();
@@ -109,6 +110,24 @@ public class Player {
         this.index = index;
     }
 
+    public int getNumUtil() {
+        return this.numUtil;
+    }
+
+    public void incrementNumUtil() {
+        this.numUtil++;
+    }
+
+    public int diceRollMultiplier() {
+        if (numUtil == 1) {
+            return 4;
+        } else if (numUtil == 2) {
+            return 10;
+        } else {
+            return 0;
+        }
+    }
+
     public void spaceMove(int spaceMove, Game game) {
         if(spaceMove < 0) {
             if(space < Math.abs(spaceMove)) {
@@ -154,6 +173,53 @@ public class Player {
     }
     //TODO: write displayPlayerStats()
     public void displayPlayerStats() {
+
+    }
+
+    // TODO: changes rent of a color group
+    public void rentChange(colorGroup color, int numHouses, int numHotels) {
+
+    } 
+
+    public boolean completeSet(colorGroup color) {
+        int completeSet = 0;
+        if(color.toString().equals(colorGroup.dark_blue.toString()) || color.toString().equals(colorGroup.purple.toString())) {
+            completeSet = 2;
+            
+        } else {
+            completeSet = 3;
+        }
+        int count = 0;
+        for(Property prop : property) {
+            if (prop.getName().equals("property") && prop.getColor().toString().equals(color.toString())) {
+                count++;
+            }
+        }
+        if(count == completeSet) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void updateProperty(Property newProperty, Game game) {
+        property.add(newProperty);
+        newProperty.setIsOwned(true);
+        incrementMoney(-newProperty.getPrice());
+            newProperty.setOwner(this);
+            if(newProperty.getType().toString().equals(propertyType.railroad.toString())) {
+                numRR++;
+                newProperty.setRent(25 + (game.getCurrentPlayer().getNumRR())*25);
+            } else if(newProperty.getType().toString().equals(propertyType.utility.toString())) {
+                numUtil++;
+            } else if(completeSet(newProperty.getColor())) {
+                sellHouseOrHotel(newProperty, game);
+            }
+        //search existing property for color match, update rent, update numRR, add utility variable and update
+    }
+
+    //TODO: write sellHouseOrHotel()
+    public void sellHouseOrHotel(Property property, Game game) {
 
     }
 }

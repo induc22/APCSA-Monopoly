@@ -8,8 +8,6 @@ public class Board {
     public Board() {
         comChest = new ArrayList<ChanceOrComChest>();
         chance = new ArrayList<ChanceOrComChest>();
-
-        board = new Space[] {new Space("Go")};// TODO: add spaces
     }
 
     public void fillComChest() {
@@ -29,7 +27,6 @@ public class Board {
         comChest.add(new ChanceOrComChest("Community Chest", "Receive for services $25", 25,0));
         comChest.add(new ChanceOrComChest("Community Chest", "Doctor's fee, pay $50", -50,0));
         comChest.add(new ChanceOrComChest("Community Chest", "Life insurance matures, collect $100", 100,0));
-        //TODO: finish adding spaces
     }
 
     public void fillChance() {

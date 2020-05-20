@@ -1,4 +1,5 @@
 import java.util.Scanner;
+enum colorGroup {purple, light_blue, pink, orange, red, yellow, green, dark_blue, NA}
 
 public class Game {
 
@@ -10,6 +11,8 @@ public class Game {
     private String exit;
     private boolean doubles;
     private boolean play;
+    private colorGroup[] propColors;
+
 
     Scanner user = new Scanner(System.in);
 
@@ -32,7 +35,7 @@ public class Game {
             System.out.println("Player " + (i + 1) + ", what is your name?");
             String name = user.nextLine();
             players[i] = new Player(name);
-            players[i].setMoney(1500);
+            players[i].setMoney(2000);
             players[i].setSpace(0);
             players[i].setIndex(i);
             System.out.println(players[i].getName() + " now has $1500");
@@ -44,46 +47,49 @@ public class Game {
         board = new Board();
         // TODO: rent calculator method for properties AHHHHHHHHHH
         // TODO: map to BoardMap rent and costs
+        board.fillChance();
+        board.fillComChest();
         board.setBoard(new Space[] {
             new Space("Go"), 
-            new Property(BoardMap.Spaces.MEDITERANNEAN_AVE, "Mediterannean Avenue", 60, 2, propertyType.residential), 
+            new Property(BoardMap.Spaces.MEDITERANNEAN_AVE, "Mediterannean Avenue", 60, 2, propertyType.residential, colorGroup.purple, 50), 
             new Space("Community Chest"),
-            new Property(BoardMap.Spaces.BALTIC_AVE, "Baltic Avenue", 60, 4, propertyType.residential),
+            new Property(BoardMap.Spaces.BALTIC_AVE, "Baltic Avenue", 60, 4, propertyType.residential, colorGroup.purple, 50),
             new Space("Income Tax"),
-            new Property(BoardMap.Spaces.READING_RR, "Reading Railroad", 200, currentPlayer.getNumRR()*25, propertyType.railroad),
-            new Property(BoardMap.Spaces.ORIENTAL_AVE, "Oriental Avenue", 100, 6, propertyType.residential),
+            new Property(BoardMap.Spaces.READING_RR, "Reading Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
+            new Property(BoardMap.Spaces.ORIENTAL_AVE, "Oriental Avenue", 100, 6, propertyType.residential, colorGroup.light_blue, 50),
             new Space("Chance"),
-            new Property(BoardMap.Spaces.VERMONT_AVE, "Vermont Avenue", 100, 6, propertyType.residential),
-            new Property(BoardMap.Spaces.CONNECTICUT_AVE, "Connecticut Avenue", 120, 8, propertyType.residential),
+            new Property(BoardMap.Spaces.VERMONT_AVE, "Vermont Avenue", 100, 6, propertyType.residential, colorGroup.light_blue, 50),
+            new Property(BoardMap.Spaces.CONNECTICUT_AVE, "Connecticut Avenue", 120, 8, propertyType.residential, colorGroup.light_blue, 50),
             new Space("Jail"),
-            new Property(BoardMap.Spaces.ST_CHARLES_PLACE, "St.Charles Place", 140, 10, propertyType.residential),
-            new Property(BoardMap.Spaces.ELECTRIC_COMPANY, "Electric Company", 150, diceRoll*4, propertyType.utility),
-            new Property(BoardMap.Spaces.STATES_AVE, "States Avenue", 140, 10, propertyType.residential),
-            new Property(BoardMap.Spaces.VIRGINIA_AVE, "Virginia Avenue", 160, 12, propertyType.residential),
-            new Property(BoardMap.Spaces.PENNSYLVANIA_RR, "Pennsylvania Railroad", 200, currentPlayer.getNumRR()*25, propertyType.railroad),
-            new Property(BoardMap.Spaces.ST_JAMES_PLACE, "St. James Place", 180, 14, propertyType.residential),
+            new Property(BoardMap.Spaces.ST_CHARLES_PLACE, "St.Charles Place", 140, 10, propertyType.residential, colorGroup.pink, 100),
+            new Property(BoardMap.Spaces.ELECTRIC_COMPANY, "Electric Company", 150, diceRoll*4, propertyType.utility, colorGroup.NA, 0),
+            new Property(BoardMap.Spaces.STATES_AVE, "States Avenue", 140, 10, propertyType.residential, colorGroup.pink, 100),
+            new Property(BoardMap.Spaces.VIRGINIA_AVE, "Virginia Avenue", 160, 12, propertyType.residential, colorGroup.pink, 100),
+            new Property(BoardMap.Spaces.PENNSYLVANIA_RR, "Pennsylvania Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
+            new Property(BoardMap.Spaces.ST_JAMES_PLACE, "St. James Place", 180, 14, propertyType.residential, colorGroup.pink, 100),
             new Space("Community Chest"),
-            new Property(BoardMap.Spaces.TENNESSEE_AVE, "Tennessee Avenue", 180, 14, propertyType.residential),
-            new Property(BoardMap.Spaces.NEW_YORK_AVE, "New York Avenue", 200, 16, propertyType.residential),
+            new Property(BoardMap.Spaces.TENNESSEE_AVE, "Tennessee Avenue", 180, 14, propertyType.residential, colorGroup.orange, 100),
+            new Property(BoardMap.Spaces.NEW_YORK_AVE, "New York Avenue", 200, 16, propertyType.residential, colorGroup.orange, 100),
             new Space("Free Parking"),
-            new Property(BoardMap.Spaces.KENTUCKY_AVE, "Kentucky Avenue", 220, 18, propertyType.residential),
+            new Property(BoardMap.Spaces.KENTUCKY_AVE, "Kentucky Avenue", 220, 18, propertyType.residential, colorGroup.red, 150),
             new Space("Chance"),
-            new Property(BoardMap.Spaces.INDIANA_AVE, "Indiana Avenue", 220, 18, propertyType.residential),
-            new Property(BoardMap.Spaces.ILLINOIS_AVE,"Illinois Avenue", 240, 20, propertyType.residential),
-            new Property(BoardMap.Spaces.BN0_RR, "b. & O. Railroad", 200, currentPlayer.getNumRR()*25, propertyType.railroad),
-            new Property(BoardMap.Spaces.ATLANTIC_AVE,"Atlantic Avenue", 260, 22, propertyType.residential),
-            new Property(BoardMap.Spaces.VENTINOR_AVE,"Ventinor Avenue", 260, 22, propertyType.residential),
-            new Property(BoardMap.Spaces.MARIAN_GARDENS,"Marvin Gardens", 280, 24, propertyType.residential),
+            new Property(BoardMap.Spaces.INDIANA_AVE, "Indiana Avenue", 220, 18, propertyType.residential, colorGroup.red, 150),
+            new Property(BoardMap.Spaces.ILLINOIS_AVE,"Illinois Avenue", 240, 20, propertyType.residential, colorGroup.red, 150),
+            new Property(BoardMap.Spaces.BN0_RR, "B. & O. Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
+            new Property(BoardMap.Spaces.ATLANTIC_AVE,"Atlantic Avenue", 260, 22, propertyType.residential, colorGroup.yellow, 150),
+            new Property(BoardMap.Spaces.VENTINOR_AVE,"Ventinor Avenue", 260, 22, propertyType.residential, colorGroup.yellow, 150),
+            new Property(BoardMap.Spaces.WATER_WORKS, "Water Works", 150, diceRoll*4, propertyType.utility, colorGroup.NA, 0),
+            new Property(BoardMap.Spaces.MARIAN_GARDENS,"Marvin Gardens", 280, 24, propertyType.residential, colorGroup.yellow, 150),
             new Space("Go to jail!"),
-            new Property(BoardMap.Spaces.PACIFIC_AVE,"Pacific Avenue", 300, 26, propertyType.residential),
-            new Property(BoardMap.Spaces.NORTH_CAROLINA_AVE,"North Carolina Avenue", 300, 26, propertyType.residential),
+            new Property(BoardMap.Spaces.PACIFIC_AVE,"Pacific Avenue", 300, 26, propertyType.residential, colorGroup.green, 200),
+            new Property(BoardMap.Spaces.NORTH_CAROLINA_AVE,"North Carolina Avenue", 300, 26, propertyType.residential, colorGroup.green, 200),
             new Space("Community Chest"),
-            new Property(BoardMap.Spaces.PENNSYLVANIA_AVE,"Pennsylvania Avenue", 320, 28, propertyType.residential),
-            new Property(BoardMap.Spaces.SHORT_LINE_RR, "Short Line Railroad", 200, currentPlayer.getNumRR()*25, propertyType.railroad),
+            new Property(BoardMap.Spaces.PENNSYLVANIA_AVE,"Pennsylvania Avenue", 320, 28, propertyType.residential, colorGroup.green, 200),
+            new Property(BoardMap.Spaces.SHORT_LINE_RR, "Short Line Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
             new Space("Chance"),
-            new Property(BoardMap.Spaces.PARK_PLACE,"Park Place", 350, 35, propertyType.residential),
+            new Property(BoardMap.Spaces.PARK_PLACE,"Park Place", 350, 35, propertyType.residential, colorGroup.dark_blue, 200),
             new Space("Luxury Tax"),
-            new Property(BoardMap.Spaces.BOARDWALK,"Boardwalk", 400, 50, propertyType.residential),
+            new Property(BoardMap.Spaces.BOARDWALK,"Boardwalk", 400, 50, propertyType.residential, colorGroup.dark_blue, 200),
         }); 
 
     }
@@ -129,13 +135,10 @@ public class Game {
                     System.out.println("Press any key to roll the dice");
                     user.next();
                     System.out.println("Rolling...");
-                    try
-                    {
-                    Thread.sleep(1000);
-                    }
-                    catch(InterruptedException ex)
-                    {
-                    Thread.currentThread().interrupt();
+                    try {
+                        Thread.sleep(1000);
+                    } catch(InterruptedException ex) {
+                        Thread.currentThread().interrupt();
                     }
                     rollDice();
                     System.out.println("You rolled a " + diceRoll);
@@ -154,6 +157,7 @@ public class Game {
             System.out.println("Next Player: " + currentPlayer.getName());
             System.out.println("Would you like to end the game?");
             System.out.println("Press Y to end OR any other key to continue");
+            user.nextLine();
             exit = user.nextLine();
         }   
     }
@@ -196,6 +200,10 @@ public class Game {
 
     public void setDiceRoll(int diceRoll) {
         this.diceRoll = diceRoll;
+    }
+
+    public colorGroup[] getPropColors() {
+        return this.propColors;
     }
 
     public void sellProperty(Property property) {
