@@ -7,6 +7,8 @@ public class Player {
     private boolean inJail;
     private ArrayList<Property> property;
     private boolean getOutJailFree;
+    private int totalValue; //TODO: totalValue() method to calculate, place in all methods that increment money or property
+    private int numRR; //TODO: numRR() method to calculate number of railroads
 
     public Player() {
         property = new ArrayList<Property>();
@@ -31,6 +33,10 @@ public class Player {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public void incrementMoney(int increment) {
+        this.money = this.money + increment;
     }
 
     public int getSpace() {
@@ -63,5 +69,57 @@ public class Player {
 
     public void setGetOutJailFree(boolean getOutJailFree) {
         this.getOutJailFree = getOutJailFree;
+    }
+
+    public int getTotalValue() {
+        return this.totalValue;
+    }
+
+    public void setTotalValue(int totalValue) {
+        this.totalValue = totalValue;
+    }
+
+    public int getNumRR() {
+        return this.numRR;
+    }
+
+    public void setNumRR(int numRR) {
+        this.numRR = numRR;
+    }
+
+    public void spaceMove(int spaceMove, Game game) {
+        if(space < spaceMove) {
+            int behindGo = spaceMove - space;
+            space = game.getBoard().getBoard().length - 1 - behindGo;
+        } else {
+            space = space - spaceMove;
+        }
+    }
+
+    public void advanceToNearest(propertyType type) {
+        ArrayList<Integer> distances = new ArrayList<Integer>();
+        if (type.toString().equals(propertyType.railroad.toString())) {
+            int dBNO = BoardMap.Spaces.BN0_RR - space;
+            int dReading = BoardMap.Spaces.READING_RR - space;
+            int dPenn = BoardMap.Spaces.PENNSYLVANIA_AVE - space;
+            int dShortLine = BoardMap.Spaces.SHORT_LINE_RR - space;
+            distances.add(dBNO); 
+            distances.add(dReading);
+            distances.add(dPenn);
+            distances.add(dShortLine);          
+        } else if (type.toString().equals(propertyType.utility.toString())) {
+            int dWW = BoardMap.Spaces.WATER_WORKS - space;
+            int dEC = BoardMap.Spaces.ELECTRIC_COMPANY;
+            distances.add(dWW);
+            distances.add(dEC);
+        }
+        int i = 0; 
+        int longestDistance = 0; 
+        for(i = 0; i < distances.size(); i++) {
+            if (distances.size() > longestDistance) {
+                longestDistance = distances.size();
+                space = i;
+            }
+        }
     }
 }

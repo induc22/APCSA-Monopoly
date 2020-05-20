@@ -1,5 +1,6 @@
 public class BoardMap {
-    public static final int GO = 0;
+    public static class Spaces {
+        public static final int GO = 0;
     public static final int MEDITERANNEAN_AVE = 1;
     public static final int BALTIC_AVE = 3;
     public static final int READING_RR = 5;
@@ -31,6 +32,9 @@ public class BoardMap {
     public static final int SHORT_LINE_RR = 35;
     public static final int PARK_PLACE = 37;
     public static final int BOARDWALK = 39;
+    }
 
-
+    public static class Rent {
+        
+    }
 }

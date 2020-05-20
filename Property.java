@@ -8,16 +8,19 @@ public class Property extends Space {
     private Player owner;
     private propertyType type;
     private int boardSpace;
+    private String color;
 
     public Property() {}
 
-    public Property(String name, int rent, int price) {
+    public Property(int boardSpace, String name, int price, int rent, propertyType type) {
+        super("property");
         this.name = name;
         this.rent = rent;
         this.price = price;
         numHouses = 0;
         numHotels = 0;
         isOwned = false;
+        this.type = type;
     }
 
     public String getName() {
@@ -90,5 +93,21 @@ public class Property extends Space {
 
     public void setPropertyType(propertyType type) {
         this.type = type;
+    }
+
+    public int getBoardSpace() {
+        return this.boardSpace;
+    }
+
+    public void setBoardSpace(int boardSpace) {
+        this.boardSpace = boardSpace;
+    }
+
+    public String getColor() {
+        return this.color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

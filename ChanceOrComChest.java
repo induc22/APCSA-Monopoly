@@ -1,5 +1,5 @@
 public class ChanceOrComChest extends Space{
-    private String name;
+    private String action;
     private int moneyChange;
     private int moneyFromOtherPlayers;
     private int destination;
@@ -12,8 +12,9 @@ public class ChanceOrComChest extends Space{
 
     public ChanceOrComChest() {}
 
-    public ChanceOrComChest(String name) {
-        this.name = name;
+    public ChanceOrComChest(String cardType, String action) {
+        super(cardType);
+        this.action = cardType;
         this.moneyChange = 0;
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
@@ -22,8 +23,9 @@ public class ChanceOrComChest extends Space{
         this.advanceToNeartest = false;
     }
 
-    public ChanceOrComChest(String name, int moneyChange, int spaceMove) {
-        this.name = name;
+    public ChanceOrComChest(String cardType, String action, int moneyChange, int spaceMove) {
+        super(cardType);
+        this.action = action;
         this.moneyChange = moneyChange;
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
@@ -32,8 +34,9 @@ public class ChanceOrComChest extends Space{
         this.advanceToNeartest = false;
     }
 
-    public ChanceOrComChest(String name, boolean hhPay, int housePay, int hotelPay) {
-        this.name = name;
+    public ChanceOrComChest(String cardType, String action, boolean hhPay, int housePay, int hotelPay) {
+        super(cardType);
+        this.action = action;
         this.moneyChange = 0;
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
@@ -43,10 +46,11 @@ public class ChanceOrComChest extends Space{
         this.advanceToNeartest = false;
     }
 
-    public ChanceOrComChest(boolean advanceToNeartest, propertyType type, String name) {
+    public ChanceOrComChest(String cardType, boolean advanceToNeartest, propertyType type, String action) {
+        super(cardType);
         this.advanceToNeartest = advanceToNeartest;
         this.type = type;
-        this.name = name;
+        this.action = action;
         this.moneyChange = 0;
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
@@ -54,8 +58,9 @@ public class ChanceOrComChest extends Space{
         this.hhPay = false;
     }
 
-    public ChanceOrComChest(String name, int moneyChange, int moneyFromOtherPlayers, int destination) {
-        this.name = name;
+    public ChanceOrComChest(String cardType, String action, int moneyChange, int moneyFromOtherPlayers, int destination) {
+        super(cardType);
+        this.action = action;
         this.moneyChange = moneyChange;
         this.moneyFromOtherPlayers = moneyFromOtherPlayers;
         this.destination = destination;
@@ -64,12 +69,12 @@ public class ChanceOrComChest extends Space{
         this.advanceToNeartest = false;
     }
 
-    public String getName() {
-        return this.name;
+    public String getAction() {
+        return this.action;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAction(String action) {
+        this.action = action;
     }
 
     public int getMoneyChange() {
@@ -134,5 +139,13 @@ public class ChanceOrComChest extends Space{
 
     public void setAdvanceToNeartest(boolean advanceToNeartest) {
         this.advanceToNeartest = advanceToNeartest;
+    }
+
+    public propertyType getType() {
+        return this.type;
+    }
+
+    public void setPropertyType(propertyType type) {
+        this.type = type;
     }
 }
