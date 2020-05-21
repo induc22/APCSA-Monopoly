@@ -141,7 +141,7 @@ public class Game {
                     if (doubles) {
                         System.out.println("You rolled doubles! You will play again after this turn");
                     }
-                    play = doubles;
+                    play = doubles;                    
                     currentPlayer.spaceMove(diceRoll, this);
                     System.out.println("TESTING: " + currentPlayer.getSpace());
                     System.out.println("You landed on " + board.getBoard()[currentPlayer.getSpace()].getName());

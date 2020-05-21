@@ -120,7 +120,7 @@ public class Property extends Space {
             }
         } else {
             if(type.toString().equals(propertyType.utility.toString())) {
-                rent = game.getDiceRoll()*game.getCurrentPlayer().diceRollMultiplier();
+                rent = game.getDiceRoll()*owner.diceRollMultiplier();
             }
             if(!owner.equals(game.getCurrentPlayer())) {
                 System.out.println(owner.getName() + " owns this property. Time to pay rent: $" + rent);
