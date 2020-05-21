@@ -8,7 +8,7 @@ public class Player {
     private boolean inJail;
     private ArrayList<Property> property;
     private boolean getOutJailFree;
-    private int totalValue; //TODO: totalValue() method to calculate, place in all methods that increment money or property
+    private int totalValue;
     private int numRR;
     private int numUtil;
 
@@ -137,8 +137,10 @@ public class Player {
                 space = space - spaceMove;
             }  
         } else {
-            if(space + spaceMove > game.getBoard().getBoard().length) {
+            if(space + spaceMove > (game.getBoard().getBoard().length-1)) {
                 space = spaceMove + space - game.getBoard().getBoard().length;
+                incrementMoney(200);
+                System.out.println("You passed go! Collecting $200...");
             } else {
                 space = space + spaceMove;
             }
@@ -171,55 +173,39 @@ public class Player {
             }
         }
     }
-    //TODO: write displayPlayerStats()
+
     public void displayPlayerStats() {
-
-    }
-
-    // TODO: changes rent of a color group
-    public void rentChange(colorGroup color, int numHouses, int numHotels) {
-
-    } 
-
-    public boolean completeSet(colorGroup color) {
-        int completeSet = 0;
-        if(color.toString().equals(colorGroup.dark_blue.toString()) || color.toString().equals(colorGroup.purple.toString())) {
-            completeSet = 2;
-            
+        System.out.println("\n\n" + name + "'s stats: ");
+        System.out.println("Bank Balance: $" + money);
+        if(inJail) {
+            System.out.println("You are in jail");
         } else {
-            completeSet = 3;
+            System.out.println("You are not in jail");
+        } if(getOutJailFree) {
+            System.out.println("You have a get out of jail free card");
+        } else {
+            System.out.println("You do NOT have a get out of jail free card");
         }
-        int count = 0;
+        System.out.println("You own: ");
         for(Property prop : property) {
-            if (prop.getName().equals("property") && prop.getColor().toString().equals(color.toString())) {
-                count++;
-            }
+            System.out.println("\t" + prop.toString());
         }
-        if(count == completeSet) {
-            return true;
-        } else {
-            return false;
-        }
+        System.out.println("Your total value is : $" + totalValue + "\n\n");
     }
 
     public void updateProperty(Property newProperty, Game game) {
         property.add(newProperty);
         newProperty.setIsOwned(true);
         incrementMoney(-newProperty.getPrice());
+        incrementTotalValue(newProperty.getPrice());
             newProperty.setOwner(this);
             if(newProperty.getType().toString().equals(propertyType.railroad.toString())) {
                 numRR++;
                 newProperty.setRent(25 + (game.getCurrentPlayer().getNumRR())*25);
             } else if(newProperty.getType().toString().equals(propertyType.utility.toString())) {
-                numUtil++;
-            } else if(completeSet(newProperty.getColor())) {
-                sellHouseOrHotel(newProperty, game);
-            }
+                numUtil++; //TODO: utility not updating????? waterwork rent produced 0 ugh
+            } 
         //search existing property for color match, update rent, update numRR, add utility variable and update
     }
 
-    //TODO: write sellHouseOrHotel()
-    public void sellHouseOrHotel(Property property, Game game) {
-
-    }
 }

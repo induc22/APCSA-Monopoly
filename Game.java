@@ -11,8 +11,6 @@ public class Game {
     private String exit;
     private boolean doubles;
     private boolean play;
-    private colorGroup[] propColors;
-
 
     Scanner user = new Scanner(System.in);
 
@@ -24,85 +22,83 @@ public class Game {
     public void setup() {
         doubles = true;
         exit = "";
-        System.out.println("Welcome to Simplified Monopoly!");
+        System.out.println("Welcome to Simplified Monopoly Console Game!");
+        System.out.println("\tNote: when asked to press a key, press the key AND enter");
         
         // set up players and add money
         System.out.println("How many players do you have?");
         numPlayers = user.nextInt();
-        user.nextLine();
         players = new Player[numPlayers];
         for(int i = 0; i < numPlayers; i++ ) {
             System.out.println("Player " + (i + 1) + ", what is your name?");
-            String name = user.nextLine();
+            String name = user.next();
             players[i] = new Player(name);
             players[i].setMoney(2000);
             players[i].setSpace(0);
             players[i].setIndex(i);
-            System.out.println(players[i].getName() + " now has $1500");
+            System.out.println(players[i].getName() + " now has $2000");
         }
 
         currentPlayer = players[0];
         diceRoll = 0;
 
         board = new Board();
-        // TODO: rent calculator method for properties AHHHHHHHHHH
-        // TODO: map to BoardMap rent and costs
         board.fillChance();
         board.fillComChest();
         board.setBoard(new Space[] {
             new Space("Go"), 
-            new Property(BoardMap.Spaces.MEDITERANNEAN_AVE, "Mediterannean Avenue", 60, 2, propertyType.residential, colorGroup.purple, 50), 
+            new Property(BoardMap.Spaces.MEDITERANNEAN_AVE, "Mediterannean Avenue", 60, 2, propertyType.residential, colorGroup.purple), 
             new Space("Community Chest"),
-            new Property(BoardMap.Spaces.BALTIC_AVE, "Baltic Avenue", 60, 4, propertyType.residential, colorGroup.purple, 50),
+            new Property(BoardMap.Spaces.BALTIC_AVE, "Baltic Avenue", 60, 4, propertyType.residential, colorGroup.purple),
             new Space("Income Tax"),
-            new Property(BoardMap.Spaces.READING_RR, "Reading Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
-            new Property(BoardMap.Spaces.ORIENTAL_AVE, "Oriental Avenue", 100, 6, propertyType.residential, colorGroup.light_blue, 50),
+            new Property(BoardMap.Spaces.READING_RR, "Reading Railroad", 200, 25, propertyType.railroad, colorGroup.NA),
+            new Property(BoardMap.Spaces.ORIENTAL_AVE, "Oriental Avenue", 100, 6, propertyType.residential, colorGroup.light_blue),
             new Space("Chance"),
-            new Property(BoardMap.Spaces.VERMONT_AVE, "Vermont Avenue", 100, 6, propertyType.residential, colorGroup.light_blue, 50),
-            new Property(BoardMap.Spaces.CONNECTICUT_AVE, "Connecticut Avenue", 120, 8, propertyType.residential, colorGroup.light_blue, 50),
+            new Property(BoardMap.Spaces.VERMONT_AVE, "Vermont Avenue", 100, 6, propertyType.residential, colorGroup.light_blue),
+            new Property(BoardMap.Spaces.CONNECTICUT_AVE, "Connecticut Avenue", 120, 8, propertyType.residential, colorGroup.light_blue),
             new Space("Jail"),
-            new Property(BoardMap.Spaces.ST_CHARLES_PLACE, "St.Charles Place", 140, 10, propertyType.residential, colorGroup.pink, 100),
-            new Property(BoardMap.Spaces.ELECTRIC_COMPANY, "Electric Company", 150, diceRoll*4, propertyType.utility, colorGroup.NA, 0),
-            new Property(BoardMap.Spaces.STATES_AVE, "States Avenue", 140, 10, propertyType.residential, colorGroup.pink, 100),
-            new Property(BoardMap.Spaces.VIRGINIA_AVE, "Virginia Avenue", 160, 12, propertyType.residential, colorGroup.pink, 100),
-            new Property(BoardMap.Spaces.PENNSYLVANIA_RR, "Pennsylvania Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
-            new Property(BoardMap.Spaces.ST_JAMES_PLACE, "St. James Place", 180, 14, propertyType.residential, colorGroup.pink, 100),
+            new Property(BoardMap.Spaces.ST_CHARLES_PLACE, "St.Charles Place", 140, 10, propertyType.residential, colorGroup.pink),
+            new Property(BoardMap.Spaces.ELECTRIC_COMPANY, "Electric Company", 150, diceRoll*4, propertyType.utility, colorGroup.NA),
+            new Property(BoardMap.Spaces.STATES_AVE, "States Avenue", 140, 10, propertyType.residential, colorGroup.pink),
+            new Property(BoardMap.Spaces.VIRGINIA_AVE, "Virginia Avenue", 160, 12, propertyType.residential, colorGroup.pink),
+            new Property(BoardMap.Spaces.PENNSYLVANIA_RR, "Pennsylvania Railroad", 200, 25, propertyType.railroad, colorGroup.NA),
+            new Property(BoardMap.Spaces.ST_JAMES_PLACE, "St. James Place", 180, 14, propertyType.residential, colorGroup.pink),
             new Space("Community Chest"),
-            new Property(BoardMap.Spaces.TENNESSEE_AVE, "Tennessee Avenue", 180, 14, propertyType.residential, colorGroup.orange, 100),
-            new Property(BoardMap.Spaces.NEW_YORK_AVE, "New York Avenue", 200, 16, propertyType.residential, colorGroup.orange, 100),
+            new Property(BoardMap.Spaces.TENNESSEE_AVE, "Tennessee Avenue", 180, 14, propertyType.residential, colorGroup.orange),
+            new Property(BoardMap.Spaces.NEW_YORK_AVE, "New York Avenue", 200, 16, propertyType.residential, colorGroup.orange),
             new Space("Free Parking"),
-            new Property(BoardMap.Spaces.KENTUCKY_AVE, "Kentucky Avenue", 220, 18, propertyType.residential, colorGroup.red, 150),
+            new Property(BoardMap.Spaces.KENTUCKY_AVE, "Kentucky Avenue", 220, 18, propertyType.residential, colorGroup.red),
             new Space("Chance"),
-            new Property(BoardMap.Spaces.INDIANA_AVE, "Indiana Avenue", 220, 18, propertyType.residential, colorGroup.red, 150),
-            new Property(BoardMap.Spaces.ILLINOIS_AVE,"Illinois Avenue", 240, 20, propertyType.residential, colorGroup.red, 150),
-            new Property(BoardMap.Spaces.BN0_RR, "B. & O. Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
-            new Property(BoardMap.Spaces.ATLANTIC_AVE,"Atlantic Avenue", 260, 22, propertyType.residential, colorGroup.yellow, 150),
-            new Property(BoardMap.Spaces.VENTINOR_AVE,"Ventinor Avenue", 260, 22, propertyType.residential, colorGroup.yellow, 150),
-            new Property(BoardMap.Spaces.WATER_WORKS, "Water Works", 150, diceRoll*4, propertyType.utility, colorGroup.NA, 0),
-            new Property(BoardMap.Spaces.MARIAN_GARDENS,"Marvin Gardens", 280, 24, propertyType.residential, colorGroup.yellow, 150),
+            new Property(BoardMap.Spaces.INDIANA_AVE, "Indiana Avenue", 220, 18, propertyType.residential, colorGroup.red),
+            new Property(BoardMap.Spaces.ILLINOIS_AVE,"Illinois Avenue", 240, 20, propertyType.residential, colorGroup.red),
+            new Property(BoardMap.Spaces.BN0_RR, "B. & O. Railroad", 200, 25, propertyType.railroad, colorGroup.NA),
+            new Property(BoardMap.Spaces.ATLANTIC_AVE,"Atlantic Avenue", 260, 22, propertyType.residential, colorGroup.yellow),
+            new Property(BoardMap.Spaces.VENTINOR_AVE,"Ventinor Avenue", 260, 22, propertyType.residential, colorGroup.yellow),
+            new Property(BoardMap.Spaces.WATER_WORKS, "Water Works", 150, diceRoll*4, propertyType.utility, colorGroup.NA),
+            new Property(BoardMap.Spaces.MARIAN_GARDENS,"Marvin Gardens", 280, 24, propertyType.residential, colorGroup.yellow),
             new Space("Go to jail!"),
-            new Property(BoardMap.Spaces.PACIFIC_AVE,"Pacific Avenue", 300, 26, propertyType.residential, colorGroup.green, 200),
-            new Property(BoardMap.Spaces.NORTH_CAROLINA_AVE,"North Carolina Avenue", 300, 26, propertyType.residential, colorGroup.green, 200),
+            new Property(BoardMap.Spaces.PACIFIC_AVE,"Pacific Avenue", 300, 26, propertyType.residential, colorGroup.green),
+            new Property(BoardMap.Spaces.NORTH_CAROLINA_AVE,"North Carolina Avenue", 300, 26, propertyType.residential, colorGroup.green),
             new Space("Community Chest"),
-            new Property(BoardMap.Spaces.PENNSYLVANIA_AVE,"Pennsylvania Avenue", 320, 28, propertyType.residential, colorGroup.green, 200),
-            new Property(BoardMap.Spaces.SHORT_LINE_RR, "Short Line Railroad", 200, 25, propertyType.railroad, colorGroup.NA, 0),
+            new Property(BoardMap.Spaces.PENNSYLVANIA_AVE,"Pennsylvania Avenue", 320, 28, propertyType.residential, colorGroup.green),
+            new Property(BoardMap.Spaces.SHORT_LINE_RR, "Short Line Railroad", 200, 25, propertyType.railroad, colorGroup.NA),
             new Space("Chance"),
-            new Property(BoardMap.Spaces.PARK_PLACE,"Park Place", 350, 35, propertyType.residential, colorGroup.dark_blue, 200),
+            new Property(BoardMap.Spaces.PARK_PLACE,"Park Place", 350, 35, propertyType.residential, colorGroup.dark_blue),
             new Space("Luxury Tax"),
-            new Property(BoardMap.Spaces.BOARDWALK,"Boardwalk", 400, 50, propertyType.residential, colorGroup.dark_blue, 200),
+            new Property(BoardMap.Spaces.BOARDWALK,"Boardwalk", 400, 50, propertyType.residential, colorGroup.dark_blue),
         }); 
 
     }
 
     public void gamePlay() {
         System.out.println("\nLet's Get Started!\n");
-        while(!exit.equals("Y")) {
+        while(!exit.equals("y")) {
             currentPlayer.displayPlayerStats();
-            if (currentPlayer.getInJail()) { //TODO: test in jail
+            if (currentPlayer.getInJail()) {
                 System.out.println("You're in jail!");
                 System.out.println("Press: ");
                 System.out.println("1 to pay $50 to get out");
-                System.out.println("2 to roll dice (need doubles to get out)"); //TODO: dice roll doubles implementation - play again and get out of jail
+                System.out.println("2 to roll dice (need doubles to get out)");
                 if(currentPlayer.getGetOutJailFree()) {
                     System.out.println("3 to use your get out of jail free card");
                 }
@@ -131,7 +127,7 @@ public class Game {
             }
             if(!currentPlayer.getInJail()) {
                 play = true;
-                while(play) {
+                while(play && !currentPlayer.getInJail()) {
                     System.out.println("Press any key to roll the dice");
                     user.next();
                     System.out.println("Rolling...");
@@ -141,7 +137,7 @@ public class Game {
                         Thread.currentThread().interrupt();
                     }
                     rollDice();
-                    System.out.println("You rolled a " + diceRoll);
+                    System.out.println("You rolled " + diceRoll);
                     if (doubles) {
                         System.out.println("You rolled doubles! You will play again after this turn");
                     }
@@ -149,6 +145,9 @@ public class Game {
                     currentPlayer.spaceMove(diceRoll, this);
                     System.out.println("TESTING: " + currentPlayer.getSpace());
                     System.out.println("You landed on " + board.getBoard()[currentPlayer.getSpace()].getName());
+                    if(currentPlayer.getSpace() == 10) {
+                        System.out.println("\t(just visiting!)");
+                    }
                     board.getBoard()[currentPlayer.getSpace()].run(this);
                 }
             }
@@ -156,9 +155,8 @@ public class Game {
             shiftPlayer();
             System.out.println("Next Player: " + currentPlayer.getName());
             System.out.println("Would you like to end the game?");
-            System.out.println("Press Y to end OR any other key to continue");
-            user.nextLine();
-            exit = user.nextLine();
+            System.out.println("Press y to end OR any other key to continue");
+            exit = user.next();
         }   
     }
 
@@ -200,10 +198,6 @@ public class Game {
 
     public void setDiceRoll(int diceRoll) {
         this.diceRoll = diceRoll;
-    }
-
-    public colorGroup[] getPropColors() {
-        return this.propColors;
     }
 
     public void sellProperty(Property property) {

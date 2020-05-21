@@ -2,30 +2,24 @@ public class Property extends Space {
     private String name;
     private int rent;
     private int price;
-    private int numHouses;
-    private int numHotels;
     private boolean isOwned;
     private Player owner;
     private propertyType type;
     private int boardSpace;
     private colorGroup color;
-    private int houseHotelCost;
 
 
     public Property() {}
 
-    public Property(int boardSpace, String name, int price, int rent, propertyType type, colorGroup color, int houseHotelCost) {
+    public Property(int boardSpace, String name, int price, int rent, propertyType type, colorGroup color) {
         super("property");
         this.name = name;
         this.rent = rent;
         this.price = price;
-        numHouses = 0;
-        numHotels = 0;
         isOwned = false;
         this.type = type;
         if(type.toString().equals(propertyType.residential.toString())) {
             this.color = color;
-            this.houseHotelCost = houseHotelCost;
         }
     }
 
@@ -51,30 +45,6 @@ public class Property extends Space {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getNumHouses() {
-        return this.numHouses;
-    }
-
-    public void setNumHouses(int numHouses) {
-        this.numHouses = numHouses;
-    }
-
-    public void incrementNumHouses() {
-        this.numHouses++;
-    }
-
-    public int getNumHotels() {
-        return this.numHotels;
-    }
-
-    public void setNumHotels(int numHotels) {
-        this.numHotels = numHotels;
-    }
-
-    public void incrementNumHotels() {
-        this.numHotels++;
     }
 
     public boolean getIsOwned() {
@@ -117,17 +87,21 @@ public class Property extends Space {
         this.color = color;
     }
 
-    public int getHouseHotelCost() {
-        return this.houseHotelCost;
-    }
-
-    public void setHouseHotelCost(int houseHotelCost) {
-        this.houseHotelCost = houseHotelCost;
+    @Override
+    public String toString() {
+        String colorstr = "";
+        if(type.toString().equals(propertyType.residential.toString())) {
+            colorstr = " of the color " + color.toString();
+        }
+        return name + " valued at $" + price + colorstr;
     }
 
     public void displayStats() {
         System.out.println("Price: " + price);
-        System.out.println("Rent (no houses): " + rent);
+        if(type.toString() == propertyType.utility.toString()) {
+            System.out.println("\tNote: rent will be:\n\t\t4 times dice roll if 1 utility owned,\n\t\t10 times dice roll if both utilities owned");
+        }
+        System.out.println("Rent: " + rent);
         if(type.toString().equals(propertyType.residential.toString())) {
             System.out.println("Color Group: " + color);
         }
@@ -135,12 +109,12 @@ public class Property extends Space {
 
     public void run(Game game) {
         if(!isOwned) {
-            int choice;
+            String choice;
             System.out.println("Would you like to purchase " + name + "?");
             displayStats();
             System.out.println("Press 1 to purchase or any other key to not purchase.");
-            choice = game.user.nextInt();
-            if (choice == 1) {
+            choice = game.user.next();
+            if (choice.equals("1")) {
                 game.getCurrentPlayer().updateProperty(this, game);
                 System.out.println("You purchased " + name + "!");
             }
@@ -149,9 +123,9 @@ public class Property extends Space {
                 rent = game.getDiceRoll()*game.getCurrentPlayer().diceRollMultiplier();
             }
             if(!owner.equals(game.getCurrentPlayer())) {
-                System.out.println(owner.getName() + " owns this property. Time to pay rent: " + rent);
+                System.out.println(owner.getName() + " owns this property. Time to pay rent: $" + rent);
                 System.out.println("Press any key to pay");
-                game.user.nextLine();
+                game.user.next();
                 System.out.println("Paying...");
                 try {
                     Thread.sleep(1000);
@@ -161,8 +135,7 @@ public class Property extends Space {
                 game.getCurrentPlayer().incrementMoney(-rent);
                 owner.incrementMoney(rent);
             } else {
-                System.out.println("You own this property!");
-                game.getCurrentPlayer().sellHouseOrHotel(this, game);
+                System.out.println("You own this property already!");
             }
         }
     } 

@@ -4,9 +4,6 @@ public class ChanceOrComChest extends Space{
     private int moneyFromOtherPlayers;
     private int destination;
     private int spaceMove;
-    private int housePay;
-    private int hotelPay;
-    private boolean hhPay;
     private boolean advanceToNeartest;
     private propertyType type;
 
@@ -19,7 +16,6 @@ public class ChanceOrComChest extends Space{
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
         this.spaceMove = 0;
-        this.hhPay = false;
         this.advanceToNeartest = false;
     }
 
@@ -30,19 +26,6 @@ public class ChanceOrComChest extends Space{
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
         this.spaceMove = spaceMove;
-        this.hhPay = false;
-        this.advanceToNeartest = false;
-    }
-
-    public ChanceOrComChest(String cardType, String action, boolean hhPay, int housePay, int hotelPay) {
-        super(cardType);
-        this.action = action;
-        this.moneyChange = 0;
-        this.moneyFromOtherPlayers = 0;
-        this.destination = -1;
-        this.hhPay = hhPay;
-        this.housePay = housePay;
-        this.hotelPay = hotelPay;
         this.advanceToNeartest = false;
     }
 
@@ -55,7 +38,6 @@ public class ChanceOrComChest extends Space{
         this.moneyFromOtherPlayers = 0;
         this.destination = -1;
         this.spaceMove = 0;
-        this.hhPay = false;
     }
 
     public ChanceOrComChest(String cardType, String action, int moneyChange, int moneyFromOtherPlayers, int destination) {
@@ -65,7 +47,6 @@ public class ChanceOrComChest extends Space{
         this.moneyFromOtherPlayers = moneyFromOtherPlayers;
         this.destination = destination;
         this.spaceMove = 0;
-        this.hhPay = false;
         this.advanceToNeartest = false;
     }
 
@@ -107,30 +88,6 @@ public class ChanceOrComChest extends Space{
 
     public void setSpaceMove(int spaceMove) {
         this.spaceMove = spaceMove;
-    }
-
-    public int getHousePay() {
-        return this.housePay;
-    }
-
-    public void setHousePay(int housePay) {
-        this.housePay = housePay;
-    }
-
-    public int getHotelPay() {
-        return this.hotelPay;
-    }
-
-    public void setHotelPay(int hotelPay) {
-        this.hotelPay = hotelPay;
-    }
-
-    public boolean gethhPay() {
-        return this.hhPay;
-    }
-
-    public void sethhPay(boolean hhPay) {
-        this.hhPay = hhPay;
     }
 
     public boolean getAdvanceToNeartest() {

@@ -12,7 +12,6 @@ public class Board {
 
     public void fillComChest() {
         comChest.add(new ChanceOrComChest("Community Chest", "Go to jail!",0,0,BoardMap.Spaces.JAIL));
-        comChest.add(new ChanceOrComChest("Community Chest", "You are assessed for street repairs, $40 per house, $115 per hotel", true, 40, 115));
         comChest.add(new ChanceOrComChest("Community Chest", "Bank error in your favor, collect $200", 200,0));
         comChest.add(new ChanceOrComChest("Community Chest", "Income tax refund, collect $20", 20,0));
         comChest.add(new ChanceOrComChest("Community Chest", "You inherit $100", 100,0));
@@ -34,7 +33,6 @@ public class Board {
         chance.add(new ChanceOrComChest("Chance", "Go back 3 spaces",0,-3));
         chance.add(new ChanceOrComChest("Chance", "Advance to Illinois Ave.",0,0,BoardMap.Spaces.ILLINOIS_AVE));
         chance.add(new ChanceOrComChest("Chance", "Advance to boardwalk",0,0,BoardMap.Spaces.BOARDWALK));
-        chance.add(new ChanceOrComChest("Chance", "Make general repairs on all your property, for each house pay $24, for each hotel $100", true, 25, 100));
         chance.add(new ChanceOrComChest("Chance", "Pay poor tax of $15",-15,0));
         chance.add(new ChanceOrComChest("Chance", "Your building and loan matures, collect $150", 150, 0));
         chance.add(new ChanceOrComChest("Chance", "Advance to St. Charles Place",0,0,BoardMap.Spaces.ST_CHARLES_PLACE));

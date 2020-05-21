@@ -33,8 +33,5 @@ public class BoardMap {
         public static final int PARK_PLACE = 37;
         public static final int BOARDWALK = 39;
     }
-
-    public static class Rent {
-        
-    }
+    
 }
