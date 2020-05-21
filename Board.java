@@ -29,7 +29,7 @@ public class Board {
     }
 
     public void fillChance() {
-        chance.add(new ChanceOrComChest("Chance", "Go to jail!",0,0,BoardMap.Spaces.JAIL));
+        chance.add(new ChanceOrComChest("Chance", "Go to jail!",0,0,BoardMap.Spaces.JAIL)); 
         chance.add(new ChanceOrComChest("Chance", "Go back 3 spaces",0,-3));
         chance.add(new ChanceOrComChest("Chance", "Advance to Illinois Ave.",0,0,BoardMap.Spaces.ILLINOIS_AVE));
         chance.add(new ChanceOrComChest("Chance", "Advance to boardwalk",0,0,BoardMap.Spaces.BOARDWALK));
@@ -38,11 +38,11 @@ public class Board {
         chance.add(new ChanceOrComChest("Chance", "Advance to St. Charles Place",0,0,BoardMap.Spaces.ST_CHARLES_PLACE));
         chance.add(new ChanceOrComChest("Chance", "Elected chairman of the board, pay each player $50",0,50,-1));
         chance.add(new ChanceOrComChest("Chance", "Take a ride on the Reading Railroad (Advance to Reading RR)",0,0,BoardMap.Spaces.READING_RR));
-        chance.add(new ChanceOrComChest("Chance", "Advance to Go",200,0));
+        chance.add(new ChanceOrComChest("Chance", "Advance to Go, collect $200",200,0));
         chance.add(new ChanceOrComChest("Chance", "Get out of jail free card (now added to your property)"));
         chance.add(new ChanceOrComChest("Chance", "Bank pays you dividend of $50", 50, 0));
         chance.add(new ChanceOrComChest("Chance", true, propertyType.railroad, "Advance to neartest railroad"));
-        chance.add(new ChanceOrComChest("Chance", true, propertyType.utility, "Advance to neartest utility"));
+         chance.add(new ChanceOrComChest("Chance", true, propertyType.utility, "Advance to neartest utility"));
     }
 
     public Space[] getBoard() {

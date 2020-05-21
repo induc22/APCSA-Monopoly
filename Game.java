@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 enum colorGroup {purple, light_blue, pink, orange, red, yellow, green, dark_blue, NA}
 
@@ -16,14 +17,14 @@ public class Game {
 
     public Game() {
         setup();
+        System.out.println("\nLet's Get Started!\n");
         gamePlay();
+        showEndStats();
     }
 
     public void setup() {
         doubles = true;
         exit = "";
-        System.out.println("Welcome to Simplified Monopoly Console Game!");
-        System.out.println("\tNote: when asked to press a key, press the key AND enter");
         
         // set up players and add money
         System.out.println("How many players do you have?");
@@ -91,7 +92,6 @@ public class Game {
     }
 
     public void gamePlay() {
-        System.out.println("\nLet's Get Started!\n");
         while(!exit.equals("y")) {
             currentPlayer.displayPlayerStats();
             if (currentPlayer.getInJail()) {
@@ -141,9 +141,8 @@ public class Game {
                     if (doubles) {
                         System.out.println("You rolled doubles! You will play again after this turn");
                     }
-                    play = doubles;                    
+                    play = doubles;
                     currentPlayer.spaceMove(diceRoll, this);
-                    System.out.println("TESTING: " + currentPlayer.getSpace());
                     System.out.println("You landed on " + board.getBoard()[currentPlayer.getSpace()].getName());
                     if(currentPlayer.getSpace() == 10) {
                         System.out.println("\t(just visiting!)");
@@ -158,6 +157,59 @@ public class Game {
             System.out.println("Press y to end OR any other key to continue");
             exit = user.next();
         }   
+    }
+
+    public void showEndStats() {
+        for(Player player : players) {
+            player.displayPlayerStats();
+        }
+        // print all winners
+        ArrayList<String> winners = winners();
+        if(winners.size() == 1) {
+            System.out.println(winners.get(0) + " has won!");
+        } else if (winners.size() == players.length){
+            System.out.println("Everyone tied");
+        } else if (winners.size() == 0) {
+            System.out.println("Everyone is in debt. Nobody wins!");
+        } else {
+            System.out.print("Winners: " + winners.toString());
+        }
+    }
+
+    public ArrayList<String> winners() {
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        for(int i = 0; i < players.length; i++) {
+            if(players[i].getMoney() < 0) {
+                System.out.println(players[i].getName() + " is in debt to the bank (negative bank balance). " + players[i].getName() + " lost!");
+            } else {
+                nums.add(players[i].getTotalValue());
+            } 
+        }
+        int arrNums[] = new int[nums.size()];
+        for(int i = 0; i < nums.size(); i++) {
+            arrNums[i] = nums.get(i);
+        }
+        insertionSort(arrNums);
+        ArrayList<String> winners = new ArrayList<String>();
+        for(Player player : players) {
+           if(arrNums[arrNums.length-1] == player.getTotalValue()) {
+                winners.add(player.getName());
+           }
+        }
+        return winners;
+    }
+
+    public void insertionSort(int array[]) {  
+        int n = array.length;  
+        for (int j = 1; j < n; j++) {  
+            int key = array[j];  
+            int i = j-1;  
+            while ( (i > -1) && ( array [i] > key ) ) {  
+                array [i+1] = array [i];  
+                i--;  
+            }  
+            array[i+1] = key;  
+        }  
     }
 
     public int getNumPlayers() {

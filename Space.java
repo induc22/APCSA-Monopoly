@@ -31,6 +31,7 @@ class Space {
             game.getCurrentPlayer().incrementMoney(card.getMoneyFromOtherPlayers()*game.getNumPlayers());
             if(card.getDestination() != -1) {
                 game.getCurrentPlayer().setSpace(card.getDestination());
+                game.getBoard().getBoard()[game.getCurrentPlayer().getSpace()].run(game);
             }
             if(card.getAction().equals("Go to jail!")) {
                 game.getCurrentPlayer().setInJail(true);

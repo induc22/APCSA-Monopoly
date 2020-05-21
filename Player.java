@@ -149,27 +149,35 @@ public class Player {
 
     public void advanceToNearest(propertyType type) {
         ArrayList<Integer> distances = new ArrayList<Integer>();
+        ArrayList<Integer> spaceNums = new ArrayList<Integer>();
         if (type.toString().equals(propertyType.railroad.toString())) {
             int dBNO = BoardMap.Spaces.BN0_RR - space;
             int dReading = BoardMap.Spaces.READING_RR - space;
-            int dPenn = BoardMap.Spaces.PENNSYLVANIA_AVE - space;
+            int dPenn = BoardMap.Spaces.PENNSYLVANIA_RR - space;
             int dShortLine = BoardMap.Spaces.SHORT_LINE_RR - space;
+            spaceNums.add(BoardMap.Spaces.BN0_RR);
+            spaceNums.add(BoardMap.Spaces.READING_RR);
+            spaceNums.add(BoardMap.Spaces.PENNSYLVANIA_RR);
+            spaceNums.add(BoardMap.Spaces.SHORT_LINE_RR);
             distances.add(dBNO); 
             distances.add(dReading);
             distances.add(dPenn);
-            distances.add(dShortLine);          
+            distances.add(dShortLine);
         } else if (type.toString().equals(propertyType.utility.toString())) {
             int dWW = BoardMap.Spaces.WATER_WORKS - space;
             int dEC = BoardMap.Spaces.ELECTRIC_COMPANY;
             distances.add(dWW);
             distances.add(dEC);
+            spaceNums.add(BoardMap.Spaces.WATER_WORKS);
+            spaceNums.add(BoardMap.Spaces.ELECTRIC_COMPANY);
         }
-        int i = 0; 
-        int longestDistance = 0; 
-        for(i = 0; i < distances.size(); i++) {
-            if (distances.size() > longestDistance) {
-                longestDistance = distances.size();
-                space = i;
+        int shortestDistance = 50;
+        for(int i = 0; i < distances.size(); i++) {
+            if (distances.get(i) > 0) {
+                if (distances.get(i) < shortestDistance){
+                    shortestDistance = distances.get(i);
+                    space = spaceNums.get(i);
+                }
             }
         }
     }
@@ -203,7 +211,7 @@ public class Player {
                 numRR++;
                 newProperty.setRent(25 + (game.getCurrentPlayer().getNumRR())*25);
             } else if(newProperty.getType().toString().equals(propertyType.utility.toString())) {
-                numUtil++; //TODO: utility not updating????? waterwork rent produced 0 ugh
+                numUtil++;
             } 
         //search existing property for color match, update rent, update numRR, add utility variable and update
     }
