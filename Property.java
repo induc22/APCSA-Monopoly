@@ -1,4 +1,4 @@
-public class Property extends Space {
+public class Property extends Space { //REQ: inheritance - Property inherits the cardType attribute
     private String name;
     private int rent;
     private int price;
@@ -7,7 +7,7 @@ public class Property extends Space {
     private propertyType type;
     private int boardSpace;
     private colorGroup color;
-
+    //REQ: attributes
 
     public Property() {}
 
@@ -23,10 +23,11 @@ public class Property extends Space {
         }
     }
 
+    //REQ: attributes methods (getters and setters)
     public String getName() {
         return this.name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -96,6 +97,7 @@ public class Property extends Space {
         return name + " valued at $" + price + colorstr;
     }
 
+    //REQ: methods
     public void displayStats() {
         System.out.println("Price: " + price);
         if(type.toString() == propertyType.utility.toString()) {
@@ -107,7 +109,7 @@ public class Property extends Space {
         }
     }
 
-    public void run(Game game) {
+    public void run(Game game) { //REQ: Polymorphism - both space and property have run methods but they run differently
         if(!isOwned) {
             String choice;
             System.out.println("Would you like to purchase " + name + "?");

@@ -47,6 +47,7 @@ Throughout:
 * Primitives
 * PEMDAS
 * Pass By Value & Pass By Object Reference
+* commented one example of each of **required** concepts but there are multiple examples for each
 
 In specific places
 * Sorting *see insertionSort() method in Game class*

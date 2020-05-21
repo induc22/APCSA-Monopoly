@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
+    //REQ: encapsulation - Player encapsulates the below attributes, clients access with getters and setters and other methods
     private int index;
     private String name;
     private int money;
@@ -11,6 +12,7 @@ public class Player {
     private int totalValue;
     private int numRR;
     private int numUtil;
+    //OPT: above: primitives
 
     public Player() {
         property = new ArrayList<Property>();
@@ -42,7 +44,7 @@ public class Player {
     public void setMoney(int money) {
         int initMoney = this.money;
         this.money = money;
-        this.totalValue = this.totalValue + (money - initMoney);
+        this.totalValue = this.totalValue + (money - initMoney); //OPT: PEMDAS
     }
 
     public void incrementMoney(int increment) {
@@ -128,17 +130,17 @@ public class Player {
         }
     }
 
-    public void spaceMove(int spaceMove, Game game) {
-        if(spaceMove < 0) {
+    public void spaceMove(int spaceMove, Game game) { //OPT: spaceMove is pass by reference
+        if(spaceMove < 0) { 
             if(space < Math.abs(spaceMove)) {
                 int behindGo = Math.abs(spaceMove) - space;
-                space = game.getBoard().getBoard().length - 1 - behindGo;
+                space = game.getBoard().getBoard().length - 1 - behindGo; 
             } else {
                 space = space - spaceMove;
             }  
         } else {
             if(space + spaceMove > (game.getBoard().getBoard().length-1)) {
-                space = spaceMove + space - game.getBoard().getBoard().length;
+                space = spaceMove + space - game.getBoard().getBoard().length; //REQ: math operations on primitives
                 incrementMoney(200);
                 System.out.println("You passed go! Collecting $200...");
             } else {

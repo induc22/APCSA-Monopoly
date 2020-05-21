@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-public class Board {
-    private Space[] board;
+public class Board { //REQ: abstraction - pulling big ideas out: a board is an object and a big idea of Monopolyso I made a class
+    private Space[] board; //REQ: 1D array
     private ArrayList<ChanceOrComChest> comChest;
     private ArrayList<ChanceOrComChest> chance;
 
     public Board() {
-        comChest = new ArrayList<ChanceOrComChest>();
+        comChest = new ArrayList<ChanceOrComChest>(); //REQ: 1D ArrayList
         chance = new ArrayList<ChanceOrComChest>();
     }
 
     public void fillComChest() {
-        comChest.add(new ChanceOrComChest("Community Chest", "Go to jail!",0,0,BoardMap.Spaces.JAIL));
+        comChest.add(new ChanceOrComChest("Community Chest", "Go to jail!",0,0,BoardMap.Spaces.JAIL)); //REQ: classes, objects
         comChest.add(new ChanceOrComChest("Community Chest", "Bank error in your favor, collect $200", 200,0));
         comChest.add(new ChanceOrComChest("Community Chest", "Income tax refund, collect $20", 20,0));
         comChest.add(new ChanceOrComChest("Community Chest", "You inherit $100", 100,0));

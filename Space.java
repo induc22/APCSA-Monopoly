@@ -1,6 +1,6 @@
 enum propertyType {residential, utility, railroad}
 
-class Space {
+class Space { //REQ: classes, objects
 
     private String cardType;
 
@@ -18,14 +18,14 @@ class Space {
         this.cardType = cardType;
     }
 
-    public void run(Game game) {
+    public void run(Game game) { //REQ: Polymorphism - both space and property have run methods but they run differently
         if (cardType.equals("Go")) {
             game.getCurrentPlayer().incrementMoney(200);
-        } else if (cardType.equals("Chance") || cardType.equals("Community Chest")) {
+        } else if (cardType.equals("Chance") || cardType.equals("Community Chest")) { //REQ: boolean expressions
             ChanceOrComChest card = generateCCorCH(game.getBoard(), cardType);
             System.out.println(card.getAction());
             game.getCurrentPlayer().incrementMoney(card.getMoneyChange());
-            for(Player player : game.getPlayers()) {
+            for(Player player : game.getPlayers()) { //REQ: loops
                 player.incrementMoney(card.getMoneyFromOtherPlayers());
             }
             game.getCurrentPlayer().incrementMoney(card.getMoneyFromOtherPlayers()*game.getNumPlayers());

@@ -40,7 +40,7 @@ public class Game {
             System.out.println(players[i].getName() + " now has $2000");
         }
 
-        currentPlayer = players[0];
+        currentPlayer = players[0]; //REQ: assigning references
         diceRoll = 0;
 
         board = new Board();
@@ -92,7 +92,7 @@ public class Game {
     }
 
     public void gamePlay() {
-        while(!exit.equals("y")) {
+        while(!exit.equals("y")) { //REQ: loops
             currentPlayer.displayPlayerStats();
             if (currentPlayer.getInJail()) {
                 System.out.println("You're in jail!");
@@ -127,7 +127,7 @@ public class Game {
             }
             if(!currentPlayer.getInJail()) {
                 play = true;
-                while(play && !currentPlayer.getInJail()) {
+                while(play && !currentPlayer.getInJail()) { //REQ: boolean expressions
                     System.out.println("Press any key to roll the dice");
                     user.next();
                     System.out.println("Rolling...");
@@ -144,7 +144,7 @@ public class Game {
                     play = doubles;
                     currentPlayer.spaceMove(diceRoll, this);
                     System.out.println("You landed on " + board.getBoard()[currentPlayer.getSpace()].getName());
-                    if(currentPlayer.getSpace() == 10) {
+                    if(currentPlayer.getSpace() == 10) { //REQ: conditionals
                         System.out.println("\t(just visiting!)");
                     }
                     board.getBoard()[currentPlayer.getSpace()].run(this);
@@ -199,8 +199,8 @@ public class Game {
         return winners;
     }
 
-    public void insertionSort(int array[]) {  
-        int n = array.length;  
+    public void insertionSort(int array[]) {  //OPT: array[] is pass by reference
+        int n = array.length;  //OPT: insertion sort is a sorting method
         for (int j = 1; j < n; j++) {  
             int key = array[j];  
             int i = j-1;  

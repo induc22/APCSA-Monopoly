@@ -4,7 +4,7 @@ class Main {
         Game game = new Game();
     }
 
-    public static void introduceGame() {
+    public static void introduceGame() { //OPT: static method
         System.out.println("Welcome to Simplified Monopoly Console Game!");
         System.out.println("\tNote: when asked to press a key, press the key AND enter");
         System.out.println("Description: This is a console game *simplified* version of monopoly. Created by Indu, Aden, and Priya from G3.\n\n");
